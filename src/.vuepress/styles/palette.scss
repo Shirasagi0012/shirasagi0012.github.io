@@ -1,0 +1,27 @@
+@use "sass:color";
+@use "sass:map";
+
+$vp-c-bg: (
+  light: #FFFAFA,
+  dark: #181413,
+);
+
+$vp-c-accent: (
+    light: #9F615D,
+    dark: #DB9A95,
+);
+
+$vp-c-accent-bg: (
+    light: color.adjust(map.get($vp-c-accent, "light"), $lightness: -10%),
+    dark: color.adjust(map.get($vp-c-accent, "dark"), $lightness: -10%),
+);
+
+$vp-c-accent-hover: (
+    light: color.adjust(map.get($vp-c-accent, "light"), $lightness: 10%),
+    dark: color.adjust(map.get($vp-c-accent, "dark"), $lightness: 10%),
+);
+
+
+$vp-font: '"HarmonyOS Sans","HarmonyOS Sans SC","Mi Sans",-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", STHeiti, "Microsoft YaHei", SimSun, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"';
+$vp-font-heading: $vp-font;
+$vp-font-mono: 'Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace';
