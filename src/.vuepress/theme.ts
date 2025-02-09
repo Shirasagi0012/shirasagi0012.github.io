@@ -44,10 +44,11 @@ export default hopeTheme({
   },
 
   // 如果想要实时查看任何改变，启用它。注: 这对更新性能有很大负面影响
-  hotReload: true,
+  // hotReload: true,
 
   // 此处开启了很多功能用于演示，你应仅保留用到的功能。
   markdown: {
+    alert: true,
     align: true,
     attrs: true,
     codeTabs: true,
@@ -79,7 +80,9 @@ export default hopeTheme({
     tabs: true,
     tasklist: true,
     vPre: true,
-    highlighter: "shiki",
+    highlighter: {
+      type: "shiki", // 或 "prismjs"
+    },
 
     // 取消注释它们如果你需要 TeX 支持
     math: {
