@@ -29,7 +29,7 @@ export default hopeTheme({
 
   // 博客相关
   blog: {
-    description: "是大学生",
+    description: "懒癌晚期患者",
     intro: "/intro.html",
     medias: {
       BiliBili: "https://space.bilibili.com/13705506",
@@ -82,6 +82,7 @@ export default hopeTheme({
     vPre: true,
     highlighter: {
       type: "shiki", // 或 "prismjs"
+
     },
 
     // 取消注释它们如果你需要 TeX 支持
