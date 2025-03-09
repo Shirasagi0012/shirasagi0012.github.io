@@ -223,13 +223,11 @@ public class Student
 
 首先需要安装`Microsoft.Extensions.DependencyInjection`这个NuGet包，它提供了实现依赖注入所需的全部东西。[你可以在这里](https://learn.microsoft.com/en-us/dotnet/core/extensions/dependency-injection)查看它的文档。
 
-#### `ServiceCollection`
-
-服务通常是一个类（或者接口），它能为程序提供一些有用的功能（比如日志记录服务`ILogger`，用户登录状态管理服务`AuthService`，后端API交互的服务`SastImageAPI`）。将服务放进服务集合里，稍后我们就能从由服务集合构建的服务容器中拿取需要的服务。
-
 #### 简单使用
 
 假设我们有一个简单的服务，它为程序提供了一个功能——往屏幕上打印一行文字。
+
+服务通常是一个类（或者接口），它能为程序提供一些有用的功能（比如日志记录服务`ILogger`，用户登录状态管理服务`AuthService`，后端API交互的服务`SastImageAPI`）。
 
 ```csharp
 class ConsoleWriterService
@@ -241,7 +239,9 @@ class ConsoleWriterService
 }
 ```
 
-首先创建一个`ServiceCollection`
+要使用依赖注入容器，首先创建一个`ServiceCollection`。
+
+`ServiceCollection`是服务的集合。将服务注册进服务集合里，稍后我们就能从由服务集合构建的服务容器中拿取需要的服务。
 
 ```csharp
 var serviceCollection = new ServiceCollection();
@@ -253,7 +253,9 @@ var serviceCollection = new ServiceCollection();
 serviceCollection.AddSingleton<ConsoleWirterService>();
 ```
 
-最后，构建，得到一个能让我们拿取所需依赖的`ServiceProvider`
+最后，构建，得到一个`ServiceProvider`。
+
+`ServiceProvider`是服务的提供者，只要是注册在`ServiceCollection`中的服务，都可以从`ServiceProvider`里拿到一个。
 
 ```csharp
 var serviceProvider = serviceCollection.BuildServiceProvider();
@@ -433,7 +435,7 @@ ICounter counter2 = new Counter();
 
 已经了解了依赖注入容器的基本操作。接着我们来看看依赖注入容器的用途：注入依赖。
 
-正如前面控制反转的例子一样，服务间经常充斥着各种依赖关系。我们扩展一下`Counter`，结合前面的`IWriter`，为其添加输出的功能。这意味着`Counter`需要一个`IWriter`才能工作：
+正如前面控制反转的例子一样，服务间经常充斥着各种依赖关系。我们扩展一下`Counter`，通过一个`IWriter`为其添加输出的功能。这意味着`Counter`需要一个`IWriter`才能工作：
 
 ```csharp
 internal class Counter : ICounter
@@ -479,7 +481,8 @@ var imageUploadService = new ImageUploadService(new ObjectStorageService(new Aut
 现在只需要这样就能获取一个实现`ICounter`对象的实例。不需要操心它的构造函数里需要的依赖，太轻松了！
 
 ```csharp
-var counter = services.GetService<ICounter>(); // 依赖注入容器在背后悄悄获取了所需的IWriter服务，并且调用Counter的构造函数。
+var counter = services.GetService<ICounter>(); 
+// 依赖注入容器在背后悄悄获取了Counter所需的IWriter服务，并且调用Counter的构造函数。
 ```
 
 ### Scoped 生命周期
@@ -506,3 +509,92 @@ using (var scope = services.CreateScope())
 使用`using`可以非常方便的控制scope的范围。在这个scope内，只能获取到这一个Counter，而不同的scope内获取到的是不同的Counter。
 
 并且，在Scope被销毁时，还会调用Scoped服务的`Dispose()`方法，你可以在此时完成资源的释放。
+
+忘说了，`ServiceProvider`也可以`.Dispose()`。销毁最开始创建的Provider意味着销毁整个依赖注入容器，然后执行所有获取过的服务的`Dispose()`方法，清理所有资源。这意味着应用的生命周期结束了。
+
+> [!TIP]
+>
+> 我感觉 static 和 单例服务 差不多，为什么许多时候不推荐使用 static?
+>
+> - 单例服务生命周期与应用相同，对开发者而言是**不可控**的
+> - 你没法创建一个 static 类的新实例，但是 单例服务 可以
+> - static 类不支持实现接口，也就是说它一定会被其它服务直接依赖，增大代码的耦合度。
+> - 由于不支持接口，也不可能存在可以相互替换的多个实现（就像可以相互替换的`ConsoleWriterService`与`AnotherWriterService`一样）。
+
+## SOLID
+
+软件工程的目标是**系统化、规范化、可度量**地开发、维护和管理高质量软件。在面向对象编程中SOLID原则可以帮助开发者编写出灵活，可维护的软件。
+
+SOLID由五个原则的首字母构成，它们分别是：
+
+### 单一职责原则 Single responsibility principle
+
+一个对象只应拥有一个职责。
+
+### 开放-封闭原则 Open-closed principle
+
+一个实体应该<u>对扩展是开放的，对修改是封闭的</u>。即可扩展(extension)，不可修改(modification)。
+
+如最开始的`PrepareTextBook`方法，我们为了添加一种教材来源，需要修改这个方法，在switch里改条件。这就违背了对修改封闭的原则。
+
+而后面使用接口，我们只需要增加一个实现了`ITextbookProvider`类，即可完成扩展，不需要对`PrepareTextBook`方法做任何修改！这正好符合OCP原则。
+
+### 里氏替换原则 Liskov substitution principle
+
+一个对象/接口在其出现的任何地方，都可以用子类实例做替换，并且不会导致程序的错误。
+
+前面的`ITextbookProvider`接口中，实现它的全部子类都可以相互替换，且我们知道它们都有一个方法会返回一本教材，而不是什么奇奇怪怪的东西。
+
+实现它的三大原因：
+
+- 多态性：你可以拥有多种实现，比如`Warehouse`、`LaoDeng`、`Web`。
+- 可靠性：约束所有实现类/子类拥有一致的行为（通过实现接口/继承自父类）
+- 可预测性：你可以自信地认为替换一个实现不会使整个程序坏掉
+
+### 接口分离原则 Interface segregation principle
+
+一个对象不应该被强迫依赖于它不需要的接口。
+
+这是错误的：
+
+```csharp
+public interface IWeb
+{    
+    Textbook GetTextbook();
+    void WatchMovie();
+    ...
+}
+```
+
+因为所有本来只需要`GetTextbook`的对象，被迫地接受了一个带有一堆其它功能的东西。所有接口都应该分离为最小的功能单位：
+
+```csharp
+public interface ITextbookProvider
+{
+    Textbook GetTextbook();
+}
+public interface IMovieProvider
+{
+    void WatchMovie();
+}
+...
+//最后实现它们
+public class Web : ITextbookProvider, IMovieProvider { ... }
+```
+
+这样，即使是只能提供教材而不能提供`WatchMovie`的对象，也能作为`ITextbookProvider`被使用。这避免的不必要的依赖，并且使应用更灵活。
+
+### 依赖反转原则 Dependency inversion principle
+
+一个对象应该依赖接口，而不是具体的类型。
+
+`ITextbookProvider` √
+
+`Warehouse`、`Web`、`LaoDeng` ×
+
+---
+
+遵循这些原则会让你的代码更具可维护性，更灵活，但是这一切都是<u>有成本的</u>。它会导致你的代码变得更繁杂（比如多增加一堆接口，而它们对于程序显然不是必须的）。因此，当你尝试应用以上原则时，要考虑它带来的收益是否大于支出。如果不知道是否应该使用，你应该不使用，直到你看着一坨屎维护不下去了，再考虑重构（当然，如果你知道应该使用那请务必使用），避免过度设计造成的危害
+
+（为什么历时两年SAST Image还没上线？很大一部分原因就在这里⬆️）
+
