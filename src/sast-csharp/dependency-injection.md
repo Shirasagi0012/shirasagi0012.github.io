@@ -516,7 +516,7 @@ using (var scope = services.CreateScope())
 >
 > 我感觉 static 和 单例服务 差不多，为什么许多时候不推荐使用 static?
 >
-> - 单例服务生命周期与应用相同，对开发者而言是**不可控**的
+> - static 生命周期与应用相同，对开发者而言是**不可控**的
 > - 你没法创建一个 static 类的新实例，但是 单例服务 可以
 > - static 类不支持实现接口，也就是说它一定会被其它服务直接依赖，增大代码的耦合度。
 > - 由于不支持接口，也不可能存在可以相互替换的多个实现（就像可以相互替换的`ConsoleWriterService`与`AnotherWriterService`一样）。
