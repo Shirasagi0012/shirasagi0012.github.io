@@ -203,7 +203,7 @@ dotnet ef database update
 
 （对于SQLite，修改架构是件非常非常痛苦的事，但EF Core让我没有一点痛苦🤗）
 
-## 实体关系映射
+## 实体关系
 
 目前，我们已经学会了EF Core的简单使用，如何创建迁移，对数据库增删查改，以及使用迁移让模型不断演进。
 
@@ -456,4 +456,66 @@ public class Game
 ![image-20250322152401031](./.img/image-20250322152401031.png)
 
 这张表的每一条记录都表示一个`Friend`到`Game`的关系。而一个`Friend`可以有多个这样的关系，一个`Game`也可以有多个到`Friend`的关系，因此能描述多对多的关系。
+
+## 更灵活的关系配置
+
+在EF Core中，有三种方式可以用来描述实体之间的关系：约定、数据标注、Fluent API。
+
+按照约定大于配置，配置大于代码的原则，我们通常只需要使用约定即可。如果需要，可以使用一些添加在模型上的特性来指定是什么关系。对于更复杂的需求，你可以使用Fluent API完成对实体关系的100%掌控（配置级联删除策略，配置表名，配置主键和外键，配置如何映射都可以通过Fluent API 完成）。
+
+将刚才的模型使用Fluent API描述如下：
+
+```csharp
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    // Friend configuration
+    modelBuilder.Entity<Friend>(entity =>
+    {
+        entity.HasKey(e => e.Id);
+        entity.Property(e => e.Id).ValueGeneratedOnAdd();
+        entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+        entity.Property(e => e.Gender).HasConversion<string>();
+
+        // One-to-one relationship with Book
+        entity.HasOne(e => e.FavoriteBook)
+           .WithMany()
+           .OnDelete(DeleteBehavior.SetNull);
+
+        // One-to-many relationship with Animal (Friend has many Pets)
+        entity.HasMany(e => e.Pets)
+           .WithOne()
+           .OnDelete(DeleteBehavior.Cascade);
+    });
+
+    // Game configuration
+    modelBuilder.Entity<Game>(entity =>
+    {
+        entity.HasKey(e => e.Id);
+        entity.Property(e => e.Id).ValueGeneratedOnAdd();
+        entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+    });
+
+    // Book configuration
+    modelBuilder.Entity<Book>(entity =>
+    {
+        entity.HasKey(e => e.Id);
+        entity.Property(e => e.Id).ValueGeneratedOnAdd();
+        entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
+    });
+
+    // Animal configuration
+    modelBuilder.Entity<Animal>(entity =>
+    {
+        entity.HasKey(e => e.Id);
+        entity.Property(e => e.Id).ValueGeneratedOnAdd();
+        entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
+    });
+
+    // Many-to-many relationship between Friend and Game
+    modelBuilder.Entity<Friend>()
+       .HasMany(f => f.Games)
+       .WithMany(g => g.Players)
+       .UsingEntity(j => j.ToTable("FriendGame"));
+}
+```
 
