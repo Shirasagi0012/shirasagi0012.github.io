@@ -375,8 +375,6 @@ var friend = await db.Friends
   .Include(f => f.Pets)
   .FirstOrDefaultAsync();
 
-
-
 await db.SaveChangesAsync();
 ```
 
