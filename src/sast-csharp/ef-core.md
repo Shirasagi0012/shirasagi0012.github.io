@@ -1,3 +1,14 @@
+---
+title: "[SAST C#] EF Core"
+license: CC BY-SA 4.0 International
+date: 2025-03-09
+category: 
+  - NJUPT SAST 南邮校科协
+tag:
+  - C#
+  - .NET
+---
+
 # EF Core
 
 数据库是按照某种结构来组织，存储数据的仓库，并且速度非常快。

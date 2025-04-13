@@ -1,3 +1,15 @@
+---
+title: "[SAST C#] Web应用架构"
+license: CC BY-SA 4.0 International
+date: 2025-04-13
+category: 
+  - NJUPT SAST 南邮校科协
+tag:
+  - C#
+  - .NET
+  - Web
+---
+
 # Web应用架构
 
 ## 传统三层架构

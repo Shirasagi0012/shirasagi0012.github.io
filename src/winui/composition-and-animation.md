@@ -1,3 +1,15 @@
+---
+title: "Composition API in UWP/WinUI 3"
+license: CC BY-SA 4.0 International
+date: 2025-03-09
+category: 
+  - WinUI 3
+tag:
+  - C#
+  - .NET
+  - WinUI
+---
+
 # Composition API in UWP/WinUI 3
 
 在Windows 8中，微软为应用提供了一套全新的渲染机制`DirectComposition`，它可以让应用借助硬件加速，构建更漂亮的界面。Metro App/UWP/WinUI 3底层都是基于`DirectComposition`来完成界面和动画的渲染的。在UWP中，开发者不仅仅可以使用XAML，也可以使用底层的`DirectComposition`来绘制界面，但是直接使用它写起来非常麻烦。因此，在Windows 10中，微软提供了Composition API，让开发者无需深入底层即可在UI中添加复杂的特效，并且和XAML元素一起渲染。
