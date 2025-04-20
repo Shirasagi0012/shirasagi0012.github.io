@@ -1,0 +1,188 @@
+{
+  "main": {
+    "id": "9f724a917b963334",
+    "type": "split",
+    "children": [
+      {
+        "id": "61cbf57ba2bf38b9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "32b2960d346d25b6",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "computer-science/operating-system/concurrency.md",
+                "mode": "source",
+                "source": true
+              },
+              "icon": "lucide-file",
+              "title": "concurrency"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "48f0680cd089c601",
+    "type": "split",
+    "children": [
+      {
+        "id": "883b69ac77524009",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "093a85fc0c2a68b6",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "96371b3825d1073b",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "f0c5b79f33233de8",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "23ac812fa2da09bc",
+    "type": "split",
+    "children": [
+      {
+        "id": "9945fdcd8879d6b4",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4445b70aa9b2a2d6",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "computer-science/operating-system/concurrency.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for concurrency"
+            }
+          },
+          {
+            "id": "30808151f3d33150",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "computer-science/operating-system/concurrency.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from concurrency"
+            }
+          },
+          {
+            "id": "4dd090f1ecd87af5",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "5675ff93a62b1950",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "computer-science/operating-system/concurrency.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of concurrency"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "32b2960d346d25b6",
+  "lastOpenFiles": [
+    "sast-csharp/web-app-architecture.md",
+    "computer-science/operating-system/concurrency.md",
+    "sast-csharp/ef-core.md",
+    "computer-science/operating-system/concurrency",
+    "computer-science/operating-system",
+    "sast-csharp/2025-2-1st.md",
+    "computer-science/intro.md",
+    "winui/composition-and-animation.md",
+    "winter-of-code-2024/getting-started.md",
+    "intro.md",
+    "computer-science",
+    "computer-science/computer-networking",
+    "computer-science/computer-system",
+    "README.md"
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "textFontFamily": "LXGW WenKai GB",
+  "monospaceFontFamily": "Maple Mono ",
+  "baseFontSizeAction": true,
+  "interfaceFontFamily": "Segoe UI VF",
+  "cssTheme": "Minimal",
+  "accentColor": "#ffc7c7",
+  "baseFontSize": 20
+}
