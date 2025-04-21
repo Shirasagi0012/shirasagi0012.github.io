@@ -1,7 +1,7 @@
 ---
 license: CC BY-SA 4.0 International
 date: 2025-04-20
-title: Computer Science | 计算机科学
+title: Operating System | 操作系统
 category:
  - Meta
  - 计算机科学
