@@ -43,4 +43,4 @@ XAML files 'Application\App.xaml' and 'Application\App.xaml' have the same proje
 
 找了半天资料，最终找到了报错的原因。所有的XAML文件，除了根目录下的`App.xaml`，生成操作都默认为页，导致冲突。因此，在项目文件`ItemGroup`中，先删掉它的页面生成操作就好了😋，添加`<Page Remove="Application\App.xaml" />`即可
 
-![Pasted image 20241206011622.png](./img/Pasted image 20241206011622.png)
+![Pasted image 20241206011622.png](./.img/Pasted image 20241206011622.png)
