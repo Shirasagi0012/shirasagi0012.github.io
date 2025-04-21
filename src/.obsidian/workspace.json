@@ -170,6 +170,10 @@
   },
   "active": "32b2960d346d25b6",
   "lastOpenFiles": [
+    "winui/disable-xaml-generated-main.md",
+    "winui/move-manifests-and-app-xaml-away.md",
+    "winui/如何禁用App.xaml自动生成的Main方法.md",
+    "winui/如何把Manifests和App.xaml挪到其它文件夹.md",
     "sast-csharp/web-app-architecture.md",
     "computer-science/operating-system/concurrency.md",
     "sast-csharp/ef-core.md",
