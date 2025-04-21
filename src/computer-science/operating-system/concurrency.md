@@ -3,6 +3,7 @@ title: 并发 Concurrency
 date: 2025-04-21
 category:
   - 计算机科学
+  - 操作系统
 tags:
   - 操作系统
   - 计算机科学
