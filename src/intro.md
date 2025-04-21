@@ -2,6 +2,9 @@
 icon: fluent:hand-wave-16-regular
 license: CC BY-SA 4.0 International
 date: 2025-02-10
+title: "欢迎 (*´∀`)~♥"
+category:
+ - Meta
 ---
 
 # 欢迎 (*´∀`)~♥
