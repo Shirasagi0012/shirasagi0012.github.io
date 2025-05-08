@@ -67,3 +67,79 @@ tags:
 即“作为一个单元”，没有中间态，要么“全部”，要么“没有”。
 
 硬件会提供一些有用的指令，可以在这些指令上构建一个通用的集合，即所谓的同步原语。
+
+## 线程的API
+
+### 创建线程
+
+```c
+#include <pthread.h>
+int pthread_create(
+    pthread_t * 				thread,
+    const pthread_attr_t *    attr,
+    void *                    (*start_routine)(void*),
+    void *                    arg
+);
+```
+
+参数：
+
+- `thread`: 一个`pthread_t`的指针，`pthread_create()`将会初始化这个`pthread_t`
+
+- `attr`: 设置线程的属性，使用`pthread_attr_init()`来初始化一个属性。
+
+- `start_routine`: 这个线程执行哪个函数（返回值类型和参数类型可以自定义）
+- `arg`: `start_routine`函数的参数 （`arg`的类型需与`start_routine`的参数类型相同）
+
+如果你需要多个参数，可以自定义一个结构体。
+
+### 线程完成
+
+```c
+int pthread_join(
+    pthread_t  thread,
+    void   		**retval
+);
+```
+
+参数：
+
+- `thread`: 要等待的线程
+- `retval`: 返回值放哪里。不需要返回值可以填`NULL`
+
+> [!WARNING]
+>
+> 对于线程的返回值，永远不要从另一个线程返回一个指向那个线程栈内存空间的指针！
+>
+> 线程结束后，栈已经销毁，所有的值都被释放。
+
+## 锁 Lock
+
+锁可以帮助我们实现对临界区的互斥访问。
+
+```c
+int pthread_mutex_lock(pthread_mutex_t *mutex);
+int pthread_mutex_trylock(pthread_mutex_t *mutex);
+int pthread_mutex_timedlock(
+    pthread_mutex_t *restrict mutex,
+    const struct timespec *abs_timeout
+);
+int pthread_mutex_unlock(pthread_mutex_t *mutex);
+```
+
+### 初始化
+
+锁（`pthread_mutex_t`）需要使用`PTHREAD_MUTEX_INITIALIZER`来静态初始化，或者使用`pthread_mutex_init`来动态初始化（更常用）。`attr`参数可选，你可以传入一个`NULL`。
+
+```c
+int pthread_mutex_init(pthread_mutex_t *mutex, const pthread_mutexattr_t *restrict attr)
+```
+
+### 销毁
+
+使用完成后，你也需要把锁销毁：
+
+```c
+int pthread_mutex_destroy(pthread_mutex_t *mutex)
+```
+
